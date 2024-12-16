@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: auto;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+            {% if form.username.errors %}
+                <span class="error">{{ form.username.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+            {% if form.email.errors %}
+                <span class="error">{{ form.email.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="password1">Password:</label>
+            <input type="password" name="password1" id="password1" required>
+            {% if form.password1.errors %}
+                <span class="error">{{ form.password1.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="password2">Confirm Password:</label>
+            <input type="password" name="password2" id="password2" required>
+            {% if form.password2.errors %}
+                <span class="error">{{ form.password2.errors }}</span>
+            {% endif %}
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+    <p><a href="{% url 'login' %}">Already have an account? Login here.</a></p>
+</body>
+</html>
